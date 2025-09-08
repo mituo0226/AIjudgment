@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>チャットテスト用データ設定</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0d0d1a;
+      color: #fff;
+      font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(102, 204, 255, 0.3);
+    }
+    
+    h1 {
+      color: #66ccff;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #66ccff;
+      font-weight: bold;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid rgba(102, 204, 255, 0.3);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #66ccff;
+      box-shadow: 0 0 10px rgba(102, 204, 255, 0.3);
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    button {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+    
+    .setup-btn {
+      background: linear-gradient(90deg, #66ccff, #3399ff);
+      color: #000;
+    }
+    
+    .setup-btn:hover {
+      background: linear-gradient(90deg, #99e0ff, #66ccff);
+      transform: translateY(-2px);
+    }
+    
+    .open-btn {
+      background: linear-gradient(90deg, #9d4edd, #7b2cbf);
+      color: #fff;
+    }
+    
+    .open-btn:hover {
+      background: linear-gradient(90deg, #b366e6, #9d4edd);
+      transform: translateY(-2px);
+    }
+    
+    .preset-btn {
+      background: linear-gradient(90deg, #ff6b6b, #ee5a52);
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    
+    .preset-btn:hover {
+      background: linear-gradient(90deg, #ff8e8e, #ff6b6b);
+      transform: translateY(-2px);
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .status.success {
+      background: rgba(76, 175, 80, 0.2);
+      border: 1px solid rgba(76, 175, 80, 0.5);
+      color: #4caf50;
+    }
+    
+    .status.error {
+      background: rgba(244, 67, 54, 0.2);
+      border: 1px solid rgba(244, 67, 54, 0.5);
+      color: #f44336;
+    }
+    
+    .current-data {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      border: 1px solid rgba(102, 204, 255, 0.2);
+    }
+    
+    .current-data h3 {
+      color: #66ccff;
+      margin-top: 0;
+    }
+    
+    .current-data pre {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔮 チャットテスト用データ設定</h1>
+    
+    <button class="preset-btn" onclick="setPresetData()">プリセットデータを設定</button>
+    
+    <div class="form-group">
+      <label for="nickname">ニックネーム</label>
+      <input type="text" id="nickname" value="テスト太郎" placeholder="ニックネームを入力">
+    </div>
+    
+    <div class="form-group">
+      <label for="birthYear">生年</label>
+      <input type="number" id="birthYear" value="1990" min="1900" max="2010">
+    </div>
+    
+    <div class="form-group">
+      <label for="birthMonth">生月</label>
+      <select id="birthMonth">
+        <option value="1">1月</option>
+        <option value="2">2月</option>
+        <option value="3">3月</option>
+        <option value="4" selected>4月</option>
+        <option value="5">5月</option>
+        <option value="6">6月</option>
+        <option value="7">7月</option>
+        <option value="8">8月</option>
+        <option value="9">9月</option>
+        <option value="10">10月</option>
+        <option value="11">11月</option>
+        <option value="12">12月</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="birthDay">生日</label>
+      <input type="number" id="birthDay" value="15" min="1" max="31">
+    </div>
+    
+    <div class="form-group">
+      <label for="guardianKey">守護神</label>
+      <select id="guardianKey">
+        <option value="senju">千手観音菩薩（子年）</option>
+        <option value="kokuzo">虚空蔵菩薩（丑・寅年）</option>
+        <option value="monju" selected>文殊菩薩（卯年）</option>
+        <option value="fugen">普賢菩薩（辰・巳年）</option>
+        <option value="seishi">勢至菩薩（午年）</option>
+        <option value="dainichi">大日如来（未・申年）</option>
+        <option value="fudo">不動明王（酉年）</option>
+        <option value="amida">阿弥陀如来（戌年）</option>
+        <option value="yakushi">薬師如来（亥年）</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="worry">相談内容</label>
+      <textarea id="worry" rows="4" placeholder="テスト用の相談内容を入力">仕事でのストレスが多く、将来への不安も感じています。どのように向き合っていけばよいでしょうか？</textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="ticketMinutes">チケット時間（分）</label>
+      <input type="number" id="ticketMinutes" value="10" min="1" max="999">
+    </div>
+    
+    <div class="button-group">
+      <button class="setup-btn" onclick="setupTestData()">テストデータを設定</button>
+      <button class="open-btn" onclick="openChatPage()">チャットページを開く</button>
+    </div>
+    
+    <div id="status"></div>
+    
+    <div class="current-data">
+      <h3>現在のローカルストレージ</h3>
+      <div>
+        <strong>ユーザーデータ:</strong>
+        <pre id="currentUserData">データなし</pre>
+      </div>
+      <div>
+        <strong>チケット時間:</strong>
+        <pre id="currentTicketData">データなし</pre>
+      </div>
+      <button onclick="clearAllData()" style="background: #ff6b6b; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px;">全データクリア</button>
+    </div>
+  </div>
+
+  <script>
+    // 守護神データ
+    const guardians = {
+      senju: { name: '千手観音菩薩', image: 'senju.png' },
+      kokuzo: { name: '虚空蔵菩薩', image: 'kokuzo.png' },
+      monju: { name: '文殊菩薩', image: 'monju.png' },
+      fugen: { name: '普賢菩薩', image: 'fugen.png' },
+      seishi: { name: '勢至菩薩', image: 'seishi.png' },
+      dainichi: { name: '大日如来', image: 'dainichi.png' },
+      fudo: { name: '不動明王', image: 'fudo.png' },
+      amida: { name: '阿弥陀如来', image: 'amida.png' },
+      yakushi: { name: '薬師如来', image: 'yakushi.png' }
+    };
+
+    // プリセットデータを設定
+    function setPresetData() {
+      document.getElementById('nickname').value = 'テスト太郎';
+      document.getElementById('birthYear').value = '1990';
+      document.getElementById('birthMonth').value = '4';
+      document.getElementById('birthDay').value = '15';
+      document.getElementById('guardianKey').value = 'monju';
+      document.getElementById('worry').value = '仕事でのストレスが多く、将来への不安も感じています。どのように向き合っていけばよいでしょうか？';
+      document.getElementById('ticketMinutes').value = '10';
+      
+      showStatus('プリセットデータを設定しました', 'success');
+    }
+
+    // テストデータをローカルストレージに設定
+    function setupTestData() {
+      try {
+        const nickname = document.getElementById('nickname').value;
+        const birthYear = parseInt(document.getElementById('birthYear').value);
+        const birthMonth = parseInt(document.getElementById('birthMonth').value);
+        const birthDay = parseInt(document.getElementById('birthDay').value);
+        const guardianKey = document.getElementById('guardianKey').value;
+        const worry = document.getElementById('worry').value;
+        const ticketMinutes = parseInt(document.getElementById('ticketMinutes').value);
+
+        // バリデーション
+        if (!nickname || !birthYear || !birthMonth || !birthDay || !guardianKey || !ticketMinutes) {
+          throw new Error('全ての項目を入力してください');
+        }
+
+        // ユーザーデータを作成
+        const userData = {
+          nickname: nickname,
+          year: birthYear,
+          month: birthMonth,
+          day: birthDay,
+          guardian: {
+            key: guardianKey,
+            name: guardians[guardianKey].name
+          },
+          worry: worry
+        };
+
+        // ローカルストレージに保存
+        localStorage.setItem('userData', JSON.stringify(userData));
+        localStorage.setItem('ticketMinutes', ticketMinutes.toString());
+        
+        // セッションストレージにも保存
+        sessionStorage.setItem('ss_credit_minutes', ticketMinutes.toString());
+
+        showStatus('テストデータを正常に設定しました！', 'success');
+        updateCurrentData();
+
+      } catch (error) {
+        showStatus('エラー: ' + error.message, 'error');
+      }
+    }
+
+    // チャットページを開く
+    function openChatPage() {
+      // 現在のデータをチェック
+      const userData = localStorage.getItem('userData');
+      const ticketMinutes = localStorage.getItem('ticketMinutes');
+
+      if (!userData || !ticketMinutes) {
+        showStatus('先にテストデータを設定してください', 'error');
+        return;
+      }
+
+      // チャットページを開く（相対パス）
+      const chatUrl = './chat.html';
+      window.open(chatUrl, '_blank');
+      
+      showStatus('チャットページを新しいタブで開きました', 'success');
+    }
+
+    // 全データをクリア
+    function clearAllData() {
+      if (confirm('全てのローカルストレージデータを削除しますか？')) {
+        localStorage.clear();
+        sessionStorage.clear();
+        showStatus('全データをクリアしました', 'success');
+        updateCurrentData();
+      }
+    }
+
+    // ステータス表示
+    function showStatus(message, type) {
+      const statusDiv = document.getElementById('status');
+      statusDiv.textContent = message;
+      statusDiv.className = `status ${type}`;
+      
+      // 3秒後に消す
+      setTimeout(() => {
+        statusDiv.textContent = '';
+        statusDiv.className = '';
+      }, 3000);
+    }
+
+    // 現在のデータを表示
+    function updateCurrentData() {
+      const userData = localStorage.getItem('userData');
+      const ticketMinutes = localStorage.getItem('ticketMinutes');
+      const sessionMinutes = sessionStorage.getItem('ss_credit_minutes');
+
+      document.getElementById('currentUserData').textContent = 
+        userData ? JSON.stringify(JSON.parse(userData), null, 2) : 'データなし';
+      
+      document.getElementById('currentTicketData').textContent = 
+        `localStorage: ${ticketMinutes || 'なし'}\nsessionStorage: ${sessionMinutes || 'なし'}`;
+    }
+
+    // ページ読み込み時に現在のデータを表示
+    window.addEventListener('load', updateCurrentData);
+  </script>
+</body>
+</html>

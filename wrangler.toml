@@ -1,0 +1,10 @@
+name = "syugo-sin-worker"
+main = "cloudflare/worker.js"
+compatibility_date = "2025-08-15"
+account_id = "22a595c9b4d4017afe09d00fc1157fa"
+workers_dev = true
+compatibility_flags = []
+
+[dev]
+port = 8787
+local_protocol = "http"
