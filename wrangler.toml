@@ -4,7 +4,7 @@ compatibility_date = "2025-08-15"
 
 account_id = "22a595c9b4d4017afe09d00fc1157fa"
 
-workers_dev = true   # ← Classic Worker として扱う設定
+workers_dev = true
 
 [dev]
 port = 8787
