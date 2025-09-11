@@ -1,3 +1,9 @@
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
 /**
  * AI鑑定を実行する共通モジュール
  * @param {Object} payload - 鑑定に必要な情報
@@ -7,10 +13,9 @@
  * @param {number} payload.day - 生日
  * @param {string} payload.guardian - 守護神情報
  * @param {string} payload.category - カテゴリー
- * @param {string} apiKey - OpenAI APIキー
  * @returns {Promise<string>} 生成された鑑定テキスト
  */
-export async function runConsult(payload, apiKey) {
+export async function runConsult(payload) {
   const { text, year, month, day, guardian, category } = payload;
 
   try {
@@ -46,35 +51,23 @@ export async function runConsult(payload, apiKey) {
 カテゴリー: ${category}`;
 
     // OpenAI API を呼び出し
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content: systemPrompt
-          },
-          {
-            role: "user",
-            content: userPrompt
-          }
-        ],
-        max_tokens: 1000,
-        temperature: 0.7
-      })
+    const response = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt
+        },
+        {
+          role: "user",
+          content: userPrompt
+        }
+      ],
+      max_tokens: 1000,
+      temperature: 0.7
     });
 
-    if (!response.ok) {
-      throw new Error(`OpenAI API エラー: ${response.status}`);
-    }
-
-    const data = await response.json();
-    const aiResponse = data.choices[0]?.message?.content || "鑑定結果を取得できませんでした。";
+    const aiResponse = response.choices[0]?.message?.content || "鑑定結果を取得できませんでした。";
 
     // ログ出力
     console.log('相談内容:', text);
@@ -85,14 +78,7 @@ export async function runConsult(payload, apiKey) {
     return aiResponse;
 
   } catch (error) {
-    console.error('OpenAI API エラー:', error);
-    
-    // ログ出力
-    console.log('相談内容:', text);
-    console.log('生年月日:', `${year}-${month}-${day}`);
-    console.log('守護神情報:', guardian);
-    console.log('カテゴリー:', category);
-    
+    console.error("OpenAI API 呼び出しエラー:", error);
     return "鑑定結果の取得中にエラーが発生しました";
   }
 }
