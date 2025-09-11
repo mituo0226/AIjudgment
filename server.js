@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -34,7 +37,7 @@ app.post("/api/consult", async (req, res) => {
       day,
       guardian,
       category
-    }, process.env.OPENAI_API_KEY);
+    });
     
     // 結果を段落配列に分割
     const paragraphs = result.split("\n\n");
